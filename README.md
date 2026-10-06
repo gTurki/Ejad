@@ -98,7 +98,7 @@ Endpoints for reports, matching and notifications will be added as those modules
 
 ## Extra Endpoints
 
-| Member | Endpoint |
+| Member/Controller | Endpoint |
 |---|---|
 | Amira | 10 endpoints |
 | Location | /geocode/{id} |

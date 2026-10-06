@@ -104,6 +104,7 @@ Endpoints for reports, matching and notifications will be added as those modules
 | Location | /geocode/{id} |
 |  | /nearby |
 |  | /reverse-geocode |
+| Report | /nearby-found/{reportId} |
 | Fajr | ...... |
 |  | ...... |
 |  | ...... |

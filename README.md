@@ -100,9 +100,10 @@ Endpoints for reports, matching and notifications will be added as those modules
 
 | Member | Endpoint |
 |---|---|
-| Amira | ...... |
-|  | ...... |
-|  | ...... |
+| Amira | 10 endpoints |
+| Location | /geocode/{id} |
+|  | /nearby |
+|  | /reverse-geocode |
 | Fajr | ...... |
 |  | ...... |
 |  | ...... |

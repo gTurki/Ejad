@@ -101,10 +101,13 @@ Endpoints for reports, matching and notifications will be added as those modules
 | Member/Controller | Endpoint |
 |---|---|
 | Amira | 10 endpoints |
+| Admin | /verify/{id} |
+| Staff | /location/{locationId} |
+|  | /unverified |
+| Report | /nearby-found/{reportId} |
 | Location | /geocode/{id} |
 |  | /nearby |
 |  | /reverse-geocode |
-| Report | /nearby-found/{reportId} |
 | Fajr | ...... |
 |  | ...... |
 |  | ...... |

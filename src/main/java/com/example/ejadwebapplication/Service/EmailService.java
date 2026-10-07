@@ -2,10 +2,13 @@ package com.example.ejadwebapplication.Service;
 
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class EmailService {
@@ -13,13 +16,15 @@ public class EmailService {
     private final JavaMailSender mailSender;
 
     public void sendEmail(String to, String subject, String body) {
-
         SimpleMailMessage message = new SimpleMailMessage();
-
         message.setTo(to);
         message.setSubject(subject);
         message.setText(body);
-
-        mailSender.send(message);
+        try {
+            mailSender.send(message);
+        } catch (MailException e) {
+            // فشل الإيميل ما يفشّل حفظ البلاغ
+            log.warn("Email to {} failed: {}", to, e.getClass().getSimpleName());
+        }
     }
 }

@@ -62,6 +62,15 @@ public class EmailSender {
         send(to, subject, "Hi " + fullName + ",\n\n" + message);
     }
 
+    // تأكيد إنشاء البلاغ لصاحبه
+    @Async
+    public void sendReportCreated(String to, String fullName, String type, String title) {
+        send(to, type + " report created",
+                "Hi " + fullName + ",\n\n"
+                        + "Your " + type + " report \"" + title + "\" has been created successfully. "
+                        + "We will notify you when a possible match is found.");
+    }
+
     // private وبدون @Async: تنادى من داخل الكلاس، فالـ @Async ما بيشتغل عليها أصلاً (self-invocation)
     private void send(String to, String subject, String body) {
         SimpleMailMessage mail = new SimpleMailMessage();

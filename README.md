@@ -7,6 +7,7 @@ Ejad (إيجاد) is a lost-and-found platform that connects people who lost ite
 - **Lost & found reports**: users report lost items, and staff register items found at their location.
 - **AI image analysis**: upload a photo and the AI fills in the item details (category, color, brand, description) instead of typing them.
 - **AI matching**: the AI compares lost and found reports and suggests matches with a similarity score and a reason.
+- **AI report summary**: the AI analyzes the report details and generates a concise summary of the lost or found item.
 - **Notifications**: users and staff are notified about new reports, suggested matches, and confirmed matches.
 - **Staff verification**: staff accounts must be verified by an admin before they become active.
 
@@ -15,7 +16,7 @@ Ejad (إيجاد) is a lost-and-found platform that connects people who lost ite
 - Java 17+ and Spring Boot 3
 - Spring Data JPA with MySQL
 - Lombok and Jakarta Validation
-- AI API for image analysis and matching
+- AI API for image analysis,report summarization, and matching
 
 ## Data Model
 
@@ -92,8 +93,8 @@ Endpoints for reports, matching and notifications will be added as those modules
 
 | Member | Responsibility |
 |---|---|
-| Amira | Accounts (User, Staff, Admin), Locations, DataSeeder, AI image|
-| Fajr | Reports, Categories |
+| Amira | Accounts (User, Staff, Admin), Locations, DataSeeder, AI image, WhatsupSender, EmailSender|
+| Fajr | Reports, Categories, AI Report Summary |
 | Turki | ReportMatch, Notifications, AI matching and AI service |
 
 ## Extra Endpoints
@@ -103,10 +104,17 @@ Endpoints for reports, matching and notifications will be added as those modules
 | Amira | Test |
 |  | ...... |
 |  | ...... |
-| Fajr | ...... |
-|  | ...... |
-|  | ...... |
-| Turki |...... |
+| Fajr | `GET /api/v1/report/type/{type}` |
+|  | `GET /api/v1/report/category/{categoryId}` |
+|  | `GET /api/v1/report/location/{locationId}` |
+|  | `GET /api/v1/report/date/{date}` |
+|  | `GET /api/v1/report/date-range` |
+|  | `GET /api/v1/report/search/title` |
+|  | `GET /api/v1/report/search/description` |
+|  | `GET /api/v1/report/status/{status}` |
+|  | `GET /api/v1/category/{categoryId}/reports` |
+|  | `GET /api/v1/category/{categoryId}/report-count` |
+| Turki | ...... |
 |  | ...... |
 |  | ...... |
 

@@ -58,23 +58,23 @@ public class DataSeeder implements CommandLineRunner {
         locationRepository.saveAll(List.of(airport, mall, metro, university));
 
         Admin admin = fillAccount(new Admin(), "System Admin", "admin",
-                "admin@example.com", "Admin1234", "0500000000");
+                "eazmirara+admin@gmail.com", "Admin1234", "0543230737");
         adminRepository.save(admin);
 
         User sara = fillAccount(new User(), "Sara Alqahtani", "sara",
-                "sara@example.com", "Sara1234", "0511111111");
+                "eazmirara+sara@gmail.com", "Sara1234", "0543230737");
         User fahad = fillAccount(new User(), "Fahad Alotaibi", "fahad",
-                "fahad@example.com", "Fahad1234", "0522222222");
+                "eazmirara+fahad@gmail.com", "Fahad1234", "0556544660");
         userRepository.saveAll(List.of(sara, fahad));
 
         Staff khalid = fillAccount(new Staff(), "Khalid Alharbi", "khalid.staff",
-                "khalid.staff@example.com", "Khalid1234", "0533333333");
+                "eazmirara+khalid.staff@gmail.com", "Khalid1234", "0549931017");
         khalid.setLocation(airport);
         khalid.setIsVerified(true);
 
         // غير موثّقة عشان تجربون endpoint التوثيق
         Staff noura = fillAccount(new Staff(), "Noura Alshehri", "noura.staff",
-                "noura.staff@example.com", "Noura1234", "0544444444");
+                "eazmirara+noura.staff@gmail.com", "Noura1234", "0543230737");
         noura.setLocation(mall);
         noura.setIsVerified(false);
 

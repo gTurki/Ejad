@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class ReportMatchController {
 
     private final ReportMatchService reportMatchService;
-
+    
     @GetMapping("/get")
     public ResponseEntity<?> getAllMatches() {
         return ResponseEntity.status(200).body(reportMatchService.getAllMatches());

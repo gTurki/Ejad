@@ -51,11 +51,6 @@ public class CategoryController {
                 .body(new ApiResponse("Category deleted successfully"));
     }
 
-    @GetMapping("/{categoryId}/reports")
-    public ResponseEntity<?> getReportsByCategory(@PathVariable Integer categoryId) {
-        return ResponseEntity.status(200)
-                .body(categoryService.getReportsByCategory(categoryId));
-    }
 
     @GetMapping("/statistics")
     public ResponseEntity<?> getCategoryStatistics() {

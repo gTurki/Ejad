@@ -1,9 +1,11 @@
 package com.example.ejadwebapplication.Service;
 
+import com.example.ejadwebapplication.Enums.MatchStatus;
 import com.example.ejadwebapplication.Enums.ReportStatus;
 import com.example.ejadwebapplication.Enums.ReportType;
 import com.example.ejadwebapplication.Model.Category;
 import com.example.ejadwebapplication.Repository.CategoryRepository;
+import com.example.ejadwebapplication.Repository.ReportMatchRepository;
 import com.example.ejadwebapplication.Repository.ReportRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,8 +17,9 @@ import java.util.List;
 public class AdminReportService {
 
 
-        private final ReportRepository reportRepository;
-        private final GeminiService geminiService;
+    private final ReportRepository reportRepository;
+    private final ReportMatchRepository reportMatchRepository;
+    private final GeminiService geminiService;
     private final CategoryRepository categoryRepository;
 
     public String generateAdminReport() {
@@ -39,10 +42,10 @@ public class AdminReportService {
                 .findAllByStatus(ReportStatus.CLOSED)
                 .size();
 
+        int confirmedMatches = reportMatchRepository.countByStatus(MatchStatus.CONFIRMED);
         double returnRate = 0;
-
-        if (totalReports > 0) {
-            returnRate = ((double) closedReports / totalReports) * 100;
+        if (lostReports > 0) {
+            returnRate = ((double) confirmedMatches / lostReports) * 100;
         }
 
         List<Category> categories = categoryRepository.findAll();

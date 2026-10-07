@@ -11,6 +11,7 @@ import com.example.ejadwebapplication.Enums.ReportStatus;
 import com.example.ejadwebapplication.Enums.ReportType;
 import com.example.ejadwebapplication.Model.*;
 import com.example.ejadwebapplication.Repository.*;
+import com.example.ejadwebapplication.Client.EmailSender;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,7 +39,7 @@ public class ReportService {
     private final ReportMatchRepository reportMatchRepository;
     private final NotificationService notificationService;
     private final ReportMatchService reportMatchService;
-    private final EmailService emailService;
+    private final EmailSender emailSender;
     private final AiService aiService;
     private final GoogleMapsService googleMapsService;
 
@@ -63,22 +64,8 @@ public class ReportService {
         Report saved = reportRepository.save(report);
 
         if (saved.getUser() != null) {
-
-            if (type == ReportType.LOST) {
-                emailService.sendEmail(
-                        saved.getUser().getEmail(),
-                        "Lost Report Created",
-                        "Your lost item report has been successfully created in Ejad."
-                );
-            }
-
-            if (type == ReportType.FOUND) {
-                emailService.sendEmail(
-                        saved.getUser().getEmail(),
-                        "Found Report Created",
-                        "Your found item report has been successfully created in Ejad."
-                );
-            }
+            emailSender.sendReportCreated(saved.getUser().getEmail(), saved.getUser().getFullName(),
+                    type.name(), saved.getTitle());
         }
 
         notificationService.notifyStaffAboutNewReport(saved);
@@ -233,17 +220,13 @@ public class ReportService {
                         )
         );
     }
-
     public List<ReportDTOOut> getReportsByCategory(Integer categoryId) {
         Category category = categoryRepository.findCategoryById(categoryId);
-
         if (category == null) {
             throw new ApiException("Category not found");
         }
-
         return convertListToDTO(reportRepository.findAllByCategory(category));
     }
-
     // حسب تاريخ ضياع/إيجاد الغرض
     public List<ReportDTOOut> getReportsByDateRange(
             LocalDate from,

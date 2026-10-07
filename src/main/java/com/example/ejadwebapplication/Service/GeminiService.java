@@ -1,27 +1,26 @@
 package com.example.ejadwebapplication.Service;
 
+import com.example.ejadwebapplication.Api.ApiException;
 import com.google.genai.Client;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class GeminiService {
 
-        @Value("${gemini.api.key}")
-        private String apiKey;
+    @Value("${gemini.api.key}")
+    private String apiKey;
 
-        public String generateText(String prompt) {
+    // نفس الموديل اللي يستخدمه AiService
+    @Value("${ai.model}")
+    private String model;
 
-            Client client = Client.builder()
-                    .apiKey(apiKey)
-                    .build();
-
-            return client.models.generateContent(
-                    "gemini-3.8-flash",
-                    prompt,
-                    null
-            ).text();
+    public String generateText(String prompt) {
+        try {
+            Client client = Client.builder().apiKey(apiKey).build();
+            return client.models.generateContent(model, prompt, null).text();
+        } catch (Exception e) {
+            throw new ApiException("Could not generate the admin report, please try again later");
         }
+    }
 }
